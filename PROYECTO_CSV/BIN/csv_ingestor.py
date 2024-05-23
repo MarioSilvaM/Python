@@ -74,7 +74,7 @@ def read_files(nombre_archivo):
                     inicio=0
                     nombres_atributos=["columna"+str(i+1) for i in range(len(lineas[0].strip().split(delimitador)))]    
                     archivo.seek(0)
-                #recorre las lineas leidas corroborando la cantidad de valores contra las colunas
+
                 for linea in lineas[inicio:]:
                     valores = linea.strip().split(delimitador)
                     if len(valores) == len(nombres_atributos):
@@ -90,8 +90,7 @@ def read_files(nombre_archivo):
             else:
                 write_log(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
                 write_log("Error, el archivo está vacio: [Errno 2] El archivo "+nombre_archivo+" no tiene contenido")
-                sys.exit(2)      
-    #excepcion de archivo no encontrado                  
+                sys.exit(2)            
     except FileNotFoundError as e:
         write_log(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
         write_log("Error, el archivo no existe: " + str(e))
@@ -140,7 +139,7 @@ else:
     write_log("Error, número de parámetros incorrecto: [Errno 4] consulte las opciones de parametros con --help")
     sys.exit(4)
 
-#solicitud de valores en ejecucion interactiva
+#solicitud de valores en ejecucion automatica
 if execution_type == "I":
     print("Bienvenido a la ejecucion interactiva")
     input_archivo = input("   ingrese el nombre del archivo (sin extension): ")
@@ -166,14 +165,14 @@ if execution_type == "I":
         print("Error, por favor solo responda S o N")
         tipo_lectura = input("   Desea revisar registros? S/N: ")
     
-    #escritura en log de los valores leidos
+    
     for i, registro in enumerate(registros, 1):
         write_log(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
         write_log("Registro "+ str(i) + ":")
         for attr, value in registro.__dict__.items():
             write_log(str(attr)+": " + str(value))
         write_log("")    
-                
+                  
     if tipo_lectura.upper()=="S":
         
         salir="N"
@@ -206,4 +205,10 @@ else:
         for attr, value in registro.__dict__.items():
             write_log(str(attr)+": " + str(value))
         write_log("")  # Imprimir línea en blanco entre registros         
-        
+    
+    
+    
+
+## Llamada a funcion Main
+#if __name__ == "__main__":
+#    main()
